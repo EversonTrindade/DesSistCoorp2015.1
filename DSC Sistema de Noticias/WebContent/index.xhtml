@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Sistema de Notícias</title>
+</head>
+<body>
+	<f:view>
+		<h2>Sistema de Notícias</h2>
+		<hr />
+		<font color="blue">
+			<h:outputText rendered="#{usuarioMB.comMensagem}" value="#{usuarioMB.msg}"></h:outputText>
+		</font>
+		<h:form  id="f1" rendered="#{usuarioMB.notLogado}">
+			Login: <h:inputText value="#{usuarioMB.login}"></h:inputText> 
+			Senha: <h:inputSecret value="#{usuarioMB.senha1}"></h:inputSecret>
+			<h:commandButton action="#{usuarioMB.efetuarLogin}" value="Entrar no Sistema"></h:commandButton> - 
+			<h:commandLink action="cadastroUsr.xhtml">
+				<h:outputText value="Clique AQUI para efetuar o seu cadastro"></h:outputText>
+			</h:commandLink>
+		</h:form>
+		<h:form  id="f2" rendered="#{usuarioMB.logado}">
+			<h:outputText value="Bem vindo, #{usuarioMB.usuario.login} - "></h:outputText>
+			<h:commandLink action="#{usuarioMB.logout}">
+				<h:outputText value="SAIR do sistema"></h:outputText>
+			</h:commandLink>
+		</h:form>
+		<hr />
+
+		<h:form  id="f3" rendered="#{usuarioMB.logado}">
+			<h:outputText value="Digite uma nova notícia:  "></h:outputText>
+			<h:inputTextarea cols="40" rows="2" value="#{usuarioMB.noticia}"></h:inputTextarea>
+			<h:commandButton value="Cadastrar Nova Notícia"
+				action="#{usuarioMB.cadastrarNoticia}"></h:commandButton>
+		</h:form>
+		<h:outputText rendered="#{noticiasMB.semNoticias}"
+			value="Nenhuma notícia cadastrada no sistema..."></h:outputText>
+		<h:dataTable rendered="#{noticiasMB.comNoticias}" border="0"
+			var="noticia" value="#{noticiasMB.noticias}">
+			<f:facet name="header">
+				<h3>Notícias Cadastradas</h3>
+			</f:facet>
+			<h:column id="column1">
+				<h4>
+					Autor:
+					<h:outputText value="#{noticia.usuario.login}"></h:outputText>
+					<br /> Data:
+					<h:outputText value="#{noticia.data}"></h:outputText>
+					<br />
+				</h4>
+				<h:outputText value="#{noticia.conteudo}"></h:outputText>
+				<h:form id="f4">
+					<h:commandLink id="c1" value="(Remover)" 
+								rendered="#{usuarioMB.autorNoticia(noticia.id)}"
+								action="#{usuarioMB.removerNoticia}">
+						<f:setPropertyActionListener value="#{noticia.id}" target="#{usuarioMB.noticiaRemover}">
+						</f:setPropertyActionListener>
+						<f:setPropertyActionListener value="#{noticia.usuario}" target="#{usuarioMB.autorNoticia}">
+						</f:setPropertyActionListener>
+					</h:commandLink>
+				</h:form>
+			</h:column>
+		</h:dataTable>
+	</f:view>
+</body>
+</html>

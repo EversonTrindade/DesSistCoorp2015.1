@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>Sistema de Notícias</title>
+</head>
+<body>
+<f:view>
+	<h2>Sistema de Notícias - Cadastro de Usuários</h2>
+	<h3>Informe os dados para um novo usuário:</h3>
+	<font color="red"><h:outputText rendered="#{usuarioMB.comMensagem}" value="#{usuarioMB.msg}"></h:outputText></font>
+	<h:form>
+			<h:panelGrid border="1" columns="2">
+				<h:outputText value="Login: "></h:outputText>
+				<h:inputText value="#{usuarioMB.login}"></h:inputText>
+				<h:outputText value="Senha: "></h:outputText>
+				<h:inputSecret value="#{usuarioMB.senha1}"></h:inputSecret>
+				<h:outputText value="Repita a senha: "></h:outputText>
+				<h:inputSecret value="#{usuarioMB.senha2}"></h:inputSecret>
+			</h:panelGrid>
+			<h:commandButton value="Cadastra Usuário" action="#{usuarioMB.cadastraUsuario}"></h:commandButton>
+		</h:form>
+</f:view>
+</body>
+</html>
